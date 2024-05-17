@@ -1787,7 +1787,7 @@ PROT_CHECKSUM:  STA     LEVEL_MAP_8+$100,Y ; patched to ADC $500,Y
                 CPY     #PM_OBJECT::PLAYER ; Target was the player?
                 BNE     @add_y_times_5_to_score ; => no, the player hit the pharao or mummy
 
-                DEC     player_lives
+                INC     player_lives ;levo dec
                 JSR     SOUND_PLAY_on_CH4
                 LDA     #$FF
                 STA     vKeyCollectedWhenPositive
@@ -3303,9 +3303,9 @@ FONT_TRAP_LSB:  .byte <FONT_TRAP_0_left
                 CPX     #PM_OBJECT::PLAYER ; the actual player
                 BNE     :+
 
-                LDY     #$FF			   ; Loose key
-                STY     vKeyCollectedWhenPositive
-                DEC     player_lives	   ; Loose life
+                ;LDY     #$FF			   ; Loose key
+                ;STY     vKeyCollectedWhenPositive
+                INC     player_lives	   ; Loose life LEVO
                 JSR     DRAW_TREASURES_LIVES
 :
                 LDA     #32
@@ -3581,7 +3581,7 @@ FONT_TRAP_LSB:  .byte <FONT_TRAP_0_left
                 BNE     @treasureCol	; Branch always
 
 @isArrow:       LDY     #SOUND_EFFECT::LOST_LIFE
-                DEC     player_lives    ; Arrow removes a life
+                INC     player_lives    ; Arrow removes a life
                 LDA     #32
                 STA     DEATH_ANIM
 
